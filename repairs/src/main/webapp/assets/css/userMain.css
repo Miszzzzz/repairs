@@ -1,0 +1,72 @@
+
+.dataItems{
+    width: 100%;
+    height: 80%;
+    margin-left: 15px;
+}
+.item{
+    width: 100%;
+    height: 25%;
+    border-bottom: 1px solid gray;
+}
+.page{
+    width: 100%;
+    height: 8%;
+    margin-left: 15px;
+    padding-top: 10px;
+    float: left;
+}
+.page_total{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    color: gray;
+}
+#navs{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+}
+#navs li{
+    display: block;
+    float: left;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border: 1px solid #cccccc;
+    margin-left: 15px;
+}
+#pageN{
+    border: 1px solid #cccccc;
+    background-color: #1E9FFF;
+}
+#navs li a{
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: gray;
+}
+.repair_start, .repair_process, .repair_evaluation{
+    width: 25%;
+    height: 100%;
+    float: left;
+}
+.repair_start span, .repair_process span, .repair_evaluation span{
+    display: inline-block;
+    height: 20px;
+    width: 100%;
+    float: left;
+}
+repair_end{
+    width: 5%;
+    height: 100%;
+    float: left;
+}
+repair_end span{
+    display: block;
+    height: 100%;
+    float: left;
+}

@@ -1,0 +1,19 @@
+
+<script>
+    $.get("getUser",{},function (data) {
+        let rid = data.rid;
+        let username = data.username;
+        if (rid == 1){
+            username = "【学生】" + data.username;
+        }else if (rid == 2){
+            username = "【管理员】" + data.username;
+        }
+        $(".header_item_btn").html(username);
+    });
+</script>
+
+<div class="header_logo">后勤报修</div>
+<div class="header_item">
+    <span class="header_item_btn">【学生】username</span>
+    <a href="/repairs/loginOut">退出</a>
+</div>

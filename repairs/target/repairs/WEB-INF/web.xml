@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+           version="2.5">
+
+    <!--配置spring mvc 核心控制器
+        服务器启动必须加载，需要加载spring-mvc.xml配置文件
+    -->
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <!-- 配置初始化参数，创建完DispatcherServlet对象，加载spring-mvc.xml配置文件 -->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
+        <!--配置servlet的对象的创建时间点，应用加载时创建。取值只能是非0正整数，标识启动顺序-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!--配置spring mvc编码过滤器，解决中文乱码-->
+    <filter>
+        <filter-name>characterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!-- 设置过滤器中的属性值 -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>characterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--配置spring提供的监听器，用于启动服务时创建容器
+        改监听器只能加载WEB-INF目录下名称为applicationContext.xml的配置文件-->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <!--手动指定spring配置文件位置-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath*:spring/spring.xml,classpath*:spring/spring-security.xml</param-value>
+    </context-param>
+    
+    <!--<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>-->
+
+    <filter>
+        <filter-name>FilterUser</filter-name>
+        <filter-class>com.jarn.common.filter.FilterUser</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterUser</filter-name>
+        <url-pattern>/user/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>FilterAdmin</filter-name>
+        <filter-class>com.jarn.common.filter.FilterAdmin</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>FilterAdmin</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <!--<welcome-file-list>
+        <welcome-file>/WEB-INF/pages/index.html</welcome-file>
+    </welcome-file-list>-->
+</web-app>

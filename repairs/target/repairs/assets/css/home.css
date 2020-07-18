@@ -1,0 +1,31 @@
+#myForm,#saveForm{
+    display: inline-block;
+    position: relative;
+    margin-left: 30%;
+}
+.form_ipts{
+    margin: 10px 0;
+    width: 400px;
+}
+
+.form_txt{
+    height: 38px;
+    line-height: 38px;
+    float: left;
+}
+.form_ipt input{
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #e6e6e6;
+    background-color: #fff;
+    border-radius: 2px;
+    /*        outline-style: none;*/
+    margin-left: 20px;
+    padding-left: 5px;
+}
+.form_ipt select{
+    margin-left: 20px;
+    height: 38px;
+    border-radius: 2px;
+    border: 1px solid #e6e6e6;
+}

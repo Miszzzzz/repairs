@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <title>用户界面-我要报修</title>
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/repairs/assets/js/upload.js"></script>
+    <script>
+        $(function () {
+            //头部 和  导航栏
+            //查询到用户信息  发生ajax请求 加载主页内容
+            $.get("/repairs/include/user/left.html", function (data) {
+                $("#left_content").html(data);
+            });
+            $.get("/repairs/include/user/header.html", function (data) {
+                $("#header").html(data)
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="header"></div>
+    <div id="left_content"></div>   <!--导航栏信息-->
+    <div id="context">
+        <div class="context_nav">
+            >>>我要报修
+        </div>
+        <div class="context_form">
+            <div class="test">
+                <form class="layui-form" action="" id="myForm" enctype="multipart/form-data">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">报修人</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" name="name">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">联系方式</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" name="phone">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">报修区域</label>
+                            <div class="layui-input-inline">
+                                <select name="address">
+                                    <option value="EastCourtyard">东院</option>
+                                    <option value="WestCourtyard">西院</option>
+                                    <option value="SouthCourtyard">南院</option>
+                                    <option value="NorthCourtyard">北院</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">详细地址</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" name="detailAddress">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">报修项目</label>
+                            <div class="layui-input-inline">
+                                <select  name="repairsType">
+                                    <option value="WaterElectricity">水电类维修</option>
+                                    <option value="Civil">土工类维修</option>
+                                    <option value="HotWater">热水系统维修</option>
+                                    <option value="DrinkingWater">直饮水系统维修W</option>
+                                    <option value="WashingMachine">洗衣机维修</option>
+                                    <option value="AirConditioning">空调维修</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" style="width: 50%">
+                        <label class="layui-form-label">报修详情</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="repairsDetail">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">预约时间</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="test5" name="appointmentDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="upload-content">
+                            <div class="content-img">
+                                <ul class="content-img-list">
+
+                                </ul>
+                                <div class="file">
+                                    <i class="ico-plus"></i>上传图片，支持jpg/png<input type="file" name="file" accept="image/*" id="upload" >
+                                </div>
+                            </div>
+                            <div class="upload-tips">
+                                最多上传4张图片，单张1M
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <button type="button" class="layui-btn" id="btn-submit-upload" style="margin-left: 100px">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>  <!--主题信息-->
+</div>
+<script>
+    layui.use('laydate',function () {
+        let laydate = layui.laydate;
+        //日期时间选择器
+        laydate.render({
+            elem: '#test5'
+            ,type: 'datetime'
+        });
+    });
+    layui.use('form', function(){
+        const form = layui.form;
+        form.on('select(status)', function(data){
+            //console.log(data);
+            //console.log(data.value);
+            //index(null,null,data.value);
+        });
+        form.render();
+    });
+</script>
+</body>
+<style>
+    .upload-content{
+        width: 682px;
+        margin-left: 40px;
+        font-size: 12px;
+        color: #666;
+        background: #fff;
+    }
+    .upload-content .content-img{
+        width: 682px;
+    }
+    .upload-content .content-img-list{
+        display: inline;
+        width: 682px;
+    }
+    .upload-content .content-img .ico-plus{
+        display: inline-block;
+        vertical-align: middle;
+        margin-top: -4px;
+        margin-left: 2px;
+        width: 28px;
+        height: 28px;
+        /*background: url('https://caiyunupload.b0.upaiyun.com/newweb/imgs/icon-plus.png') center/28px 28px;*/
+    }
+    .upload-content .content-img-list-item{
+        position: relative;
+        display: inline-block;
+        width: 165px;
+        height: 96px;
+        margin-top: 20px;
+        margin-left: 7px;
+    }
+    .upload-content .content-img-list-item:first-child{
+        margin-left: 0;
+    }
+    .upload-content .content-img-list-item .hide{
+        display: none;
+    }
+    .upload-content .content-img-list-item .delete-btn{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        text-align: center;
+        width: 100%;
+        background: rgba(0,0,0,0.6);
+        height: 28px;
+        line-height: 28px;
+        color: #fff;
+        cursor: pointer;
+    }
+    .upload-content .content-img-list-item .ico-delete{
+        display: inline-block;
+        vertical-align: middle;
+        width: 12px;
+        height: 13px;
+        /*background: url('https://caiyunupload.b0.upaiyun.com/newweb/imgs/icon-delete.png') center/12px 13px;*/
+    }
+    .upload-content .content-img-list-item img{
+        width: 165px;
+        height: 96px;
+    }
+    .upload-content .upload-tips{
+        padding-top: 10px;
+        text-align: right;
+        width: 100%;
+    }
+    /*图片上传按钮*/
+    .upload-content .file {
+        position: relative;
+        display: inline-block;
+        border: 1px dashed #DEDEDE;
+        border-radius: 4px;
+        color: #999999;
+        text-decoration: none;
+        text-indent: 0;
+        width: 165px;
+        height: 96px;
+        line-height: 96px;
+        margin-top: 20px;
+    }
+    .upload-content .file input {
+        position: absolute;
+        font-size: 0px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
+        width: 165px;
+        height: 96px;
+    }
+    .upload-content .file:hover {
+        color: #999999;
+    }
+    .upload-submit{
+        text-align: center;
+        margin-top: 50px;
+    }
+    .upload-submit .btn-submit-upload{
+        display: inline-block;
+        width: 170px;
+        height: 40px;
+        text-align: center;
+        line-height: 38px;
+        font-size: 14px;
+        box-sizing: border-box;
+        background: #ff8819;
+        color: #fff;
+        border: 1px solid #ff8819;
+        border-radius: 2px;
+        text-decoration: none;
+    }
+</style>
+</html>

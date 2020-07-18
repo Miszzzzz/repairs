@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员界面-订单管理</title>
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <link rel="stylesheet" href="/repairs/assets/css/userMain.css">
+    <link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+    <script type="text/javascript" src="/repairs/assets/js/adminItem.js"></script>
+    <script type="text/javascript" src="/repairs/assets/js/getParameter.js"></script>
+    <script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(function () {
+                //加载侧边栏和头部
+                $.get("/repairs/include/user/header.html", function (data) {
+                    $("#header").html(data)
+                });
+                $.get("/repairs/include/admin/left.html",function (data) {
+                    $("#left_content").html(data);
+                });
+            });
+            adminItem(1,null,null);
+        });
+    </script>
+</head>
+<style>
+    #searchForm{
+        height: 100%;
+        width: 60%;
+        float: right;
+    }
+    .keyWord{
+        margin-top: 7px;
+        float: left;
+    }
+    .button{
+        float: left;
+    }
+    .select{
+        margin-top: 2px;
+        margin-left: 30px;
+        float: left;
+    }
+</style>
+<body>
+<div id="box">
+    <div id="header"></div>  <!--头信息-->
+    <div id="left_content"></div>   <!--导航栏信息-->
+    <div id="context">
+        <div class="context_nav">
+            >>>订单管理
+            <form id="searchForm" class="layui-form">
+                <div class="datafilter">
+                    <div class="keyWord"><input type="text" placeholder="请输入关键字" name="keyWords" id="keyWords" class="layui-input"></div>
+                    <div class="button"><button type="button" class="layui-btn" onclick="javascript:searchItems();">查询</button></div>
+                    <div class="select">
+                        <select class="layui-select" id="status" name="status" lay-filter="status">
+                            <option value="0">所有</option>
+                            <option value="10">未审核</option>
+                            <option value="20">已派工</option>
+                            <option value="30">已完成</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="dataItems">
+
+            <table class="layui-table mainTable">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>报修人</th>
+                    <th>报修地址</th>
+                    <th>报修类型</th>
+                    <th>报修时间</th>
+                    <th>预约时间</th>
+                    <th>完成时间</th>
+                    <th>状态</th>
+                    <th>详情</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <th>已完成</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <th>已完成</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td></td>
+                    <th>维修中</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td></td>
+                    <th>审核中</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <th>完成</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <th>完成</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                <tr>
+                    <td>王先生</td>
+                    <td>东院  4栋510</td>
+                    <td>水电类维修</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <td>2020-04-16 14:37:10</td>
+                    <th>完成</th>
+                    <td><button type="button" class="layui-btn">详情</button></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <div class="page">
+            <div class="page_total"><span id="pages">12</span>页<span id="total">132</span>条</div>
+            <ul id="navs">
+                <li><a href="">首页</a></li>
+                <li><a href=""><<<</a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">5</a></li>
+                <li><a href="">6</a></li>
+                <li><a href="">7</a></li>
+                <li><a href="">8</a></li>
+                <li><a href="">9</a></li>
+                <li><a href="">10</a></li>
+                <li><a href="">>>></a></li>
+                <li><a href="">尾页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    /*输入关键字查询*/
+    function searchItems() {
+        let keyWords = document.getElementById("keyWords").value;
+        adminItem(null,keyWords,null);
+    }
+    /*修改订单*/
+    function updateMain(e) {
+        let tr = e.parentNode.parentNode;
+        let mid = tr.cells[0].innerHTML;
+        console.log(mid);
+        /*查询报修单*/
+        $.get("findMainInfo",{mid:mid},function (data) {
+            console.log(data)
+            $(".one").attr("value",data.mId);
+            $(".two").attr("value",data.name);
+            $(".three").attr("value",data.phone);
+            $(".four").attr("value",data.address);
+            $(".five").attr("value",data.detailAddress);
+            $(".six").attr("value",data.repairsType);
+            $(".nine").attr("value",data.appointmentDate);
+            $(".eight").attr("value",data.repairsDate);
+            $(".seven").attr("value",data.repairsDetail);
+            //console.log("ajax 提交mid查询==维修人员=="+data.mainname);
+            let rP = data.repairsType;
+            //console.log("ajax 提交mid查询==报修类型=="+rP)
+            if (data.manName != null){
+                $(".people").attr("disabled","true");
+                $(".shifu-tea").css("display","none");
+            }
+            $(".people").attr("value",data.manName);
+            if (data.startDate != null){
+                $(".ten-hea").css("display", "inline-block");
+                $(".sub-btn").css("display","none");
+                $(".ten").attr("type","text");
+                $(".ten").attr("disabled","true");
+            }
+            $(".ten").attr("value",data.startDate);
+            if (data.endDate != null) {
+                $(".sub-end").css("display", "none");
+                $(".eleven").attr("type", "text");
+                $(".eleven").attr("disabled", "true");
+            }
+            $(".eleven").attr("value",data.endDate);
+            if (data.evaluation != null){
+                $(".twelen").attr("disabled","true");
+            }
+            $(".twelen").attr("value",data.evaluation);
+
+            let list = data.images;
+            console.log(list)
+            let lis = "";
+            for (let i=0;i<list.length;i++){
+                let hs = "http://localhost:8080/repairs/assets/images/";
+                let p = list[i].url;
+                let t = p.split("\\");
+                let len = t.length - 1;
+                hs += t[len];
+                console.log(hs)
+                let li = "<li><a href=\""+hs+"\" target=\"_blank\"><img src=\""+hs+"\"></a></li>";
+                lis += li;
+            }
+            $(".img-item-list").html(lis);
+            $.get("findMaintainer",{rp:rP},function (data) {
+                //查询相应的维修人员
+                //console.log(data);
+                let ops = ""
+                for (let i = 0; i < data.length; i++) {
+                    let op = "<option value=\""+data[i].manId+"\">"+data[i].name+"</option>";
+                    ops += op;
+                }
+                //console.log(ops);
+                $("#shifu").html(ops);
+            });
+        });
+        layer.open({
+            type:1,
+            title:'修改订单',
+            skin: 'layui-layer-rim', //加上边框
+            area:['100%','100%'],
+            content:"<fieldset class=\"layui-elem-field layui-field-title\" style=\"margin-top: 20px;\">\n" +
+                "    <legend>用户报修信息</legend>\n" +
+                "</fieldset>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修单编号</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input one\" value=\"00001\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修人</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input two\" value=\"A先生\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">联系方式</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input three\" value=\"12345671234\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修地址</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input four\" value=\"东院\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">详细地址</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input five\" value=\"4栋510\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修图片</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input\" value=\"点击展示图片\" onclick=\"showImg()\">\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修项目</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input six\" value=\"水电类维修\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">预约时间</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input nine\" value=\"2020-05-09 22:22:24\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">报修时间</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" class=\"layui-input eight\" value=\"2020-05-08 22:22:24\" disabled>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <label class=\"layui-form-label\">报修详情</label>\n" +
+                "        <div class=\"layui-input-block\">\n" +
+                "            <input type=\"text\" class=\"layui-input seven\" value=\"花洒破裂花洒破裂花洒破裂花洒破裂花洒破裂花洒破裂\" disabled>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <fieldset class=\"layui-elem-field layui-field-title\" style=\"margin-top: 20px;\">\n" +
+                "        <legend>派工信息</legend>\n" +
+                "    </fieldset>\n" +
+                /*"<form class=\"layui-form\" action=\"\" id=\"myForm\">\n" +*/
+                "    <div class=\"layui-form-item\">\n" +
+                "    <form class=\"\" action=\"\" id=\"myForm\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">维修人员</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"text\" id='people' name='people' class=\"layui-input people\" value=\"师傅\">\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline shifu-tea\">\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <select class='layui-select' id='shifu' name='shifu' onchange='funChangeShi()'>\n" +
+                "                    <option value=\"0\">李1师傅</option>\n" +
+                "                    <option value=\"1\">李2师傅</option>\n" +
+                "                    <option value=\"2\">李3师傅</option>\n" +
+                "                    <option value=\"3\">李4师傅</option>\n" +
+                "                    <option value=\"4\">李5师傅</option>\n" +
+                "                    <option value=\"5\">李6师傅</option>\n" +
+                "                </select>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline ten-hea\" style='display: none'>\n" +
+                "            <label class=\"layui-form-label\">派工日期</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"datetime-local\" name=\"date\" autocomplete=\"off\" class=\"layui-input ten\" id='ten'>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <button type=\"button\" class=\"layui-btn sub-btn\" onclick=\"subRepairs()\">立即提交</button>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "<div class=\"img-item\">\n" +
+                "    <ul class=\"img-item-list\">\n" +
+                "        <li><a href=\"images/aaa.png\" target='_blank'><img src=\"images/aaa.png\"></a></li>\n" +
+                "        <li><a href=\"images/aaa.png\" target='_blank'><img src=\"images/aaa.png\"></a></li>\n" +
+                "        <li><a href=\"images/aaa.png\" target='_blank'><img src=\"images/aaa.png\"></a></li>\n" +
+                "        <li><a href=\"images/aaa.png\" target='_blank'><img src=\"images/aaa.png\"></a></li>\n" +
+                "    </ul>\n" +
+                "</div>\n" +
+                "</form>\n" +
+                "    </div>\n" +
+                /*"</form>\n" +*/
+                "    <fieldset class=\"layui-elem-field layui-field-title\" style=\"margin-top: 20px;\">\n" +
+                "        <legend>完工信息</legend>\n" +
+                "    </fieldset>\n" +
+                "<form id=\"formEvaluation\" class=''>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "            <label class=\"layui-form-label\">完工日期</label>\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "                <input type=\"datetime-local\" name=\"date\" class=\"layui-input eleven\" id='eleven'>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "        <div class=\"layui-inline sub-end\">\n" +
+                "            <div class=\"layui-input-inline\">\n" +
+                "            <button type=\"button\" class=\"layui-btn\" onclick='funEnd()' >提交</button>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <label class=\"layui-form-label\">用户评价</label>\n" +
+                "        <div class=\"layui-input-block\">\n" +
+                "            <input type=\"text\" class=\"layui-input twelen\" disabled>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "    <div class=\"layui-form-item\">\n" +
+                "        <div class=\"layui-inline\">\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</form>",
+            success:function () {
+                let form = layui.form;
+                const laydate = layui.laydate;
+                /* laydate.render({
+                     elem: '#ten'
+                     ,type: 'datetime'
+                 });
+                 laydate.render({
+                     elem: '#eleven'
+                     ,type: 'datetime'
+                 });
+                 form.render();*/
+            }
+        });
+    }
+
+    function funEnd() {
+        let mid = $(".one").val();
+        let val = $(".eleven").val();
+        let name = $(".people").val();
+        console.log(mid);
+        console.log(val);
+        console.log(name);
+        $.get("updateEnd",{mId:mid,endDate:val,manName:name},function (data) {
+            if (data.flag){
+                layer.msg("修改成功")
+            }else {
+                layer.msg("异常")
+            }
+        });
+    }
+
+    function funChangeShi() {
+        let select = document.getElementById("shifu");
+        let index = select.selectedIndex;
+        let value = select.options[index].value;
+        let text = select.options[index].text;
+        console.log(value+"="+text);
+        let val = $(".people").val();
+        console.log(val);
+        $(".people").attr("value",text);
+        $(".people").attr("id",value);
+    }
+
+    /*提交派工信息*/
+    function subRepairs(){
+        let mid = $(".one").val();
+        let id = $(".people").attr("id");
+        let val = $(".people").val();
+        /*订单编号 --- 维修人员编号 --- 维修人员姓名*/
+        $.get("updateStatus",{mId:mid,manId:id,name:val},function (data) {
+            if(data.flag){
+                layer.msg("成功");
+                setTimeout('location.replace(location.href)', 1000);
+            }else {
+                layer.msg("异常");
+                setTimeout('location.replace(location.href)', 1000);
+            }
+        });
+    }
+
+    layui.use('form', function(){
+        const form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+        /*下拉菜单*/
+        form.on('select(status)', function(data){
+            //console.log(data);
+            //console.log(data.value);
+            adminItem(null,null,data.value);
+        });
+        form.render();
+    });
+</script>
+</body>
+<style>
+    .img-item {
+        position: absolute;
+        top: 100px;
+        right: 0;
+    }
+    .img-item-list li{
+        float: left;
+        list-style: none;
+    }
+    .img-item-list li img{
+        width: 120px;
+        height: 80px;
+        margin-right: 10px;
+    }
+</style>
+</html>

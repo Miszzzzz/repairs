@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>户界面-我的报修</title>
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <link rel="stylesheet" href="/repairs/assets/css/userMain.css">
+    <link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+    <script type="text/javascript" src="/repairs/assets/js/item.js"></script>
+    <script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            //头部 和  导航栏
+            //查询到用户信息  发生ajax请求 加载主页内容
+            $.get("/repairs/include/user/left.html", function (data) {
+                $("#left_content").html(data);
+            });
+            $.get("/repairs/include/user/header.html", function (data) {
+                $("#header").html(data);
+            });
+            item(1,null);
+        });
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="header"></div>  <!--头信息-->
+    <div id="left_content"></div>   <!--导航栏信息-->
+    <div id="context">
+        <div class="context_nav">
+            >>>我的报修
+        </div>
+        <div class="dataItems">
+
+        </div>
+        <div class="page">
+            <div class="page_total"><span id="pages">12</span>页<span id="total">132</span>条</div>
+            <ul id="navs">
+                <li><a href="">首页</a></li>
+                <li><a href=""><<<</a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">5</a></li>
+                <li><a href="">6</a></li>
+                <li><a href="">7</a></li>
+                <li><a href="">8</a></li>
+                <li><a href="">9</a></li>
+                <li><a href="">10</a></li>
+                <li><a href="">>>></a></li>
+                <li><a href="">尾页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

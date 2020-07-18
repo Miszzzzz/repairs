@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jarn.dao.AdminDao">
+    <insert id="saveUser">
+        insert into user(username, password, phone, email, rid)
+        VALUES
+        (#{username}, #{password}, #{phone}, #{email}, #{rid})
+    </insert>
+
+    <update id="updateUser">
+        update user set password = #{password}, phone = #{phone}, email = #{email} where uid = #{uid}
+    </update>
+    <update id="updateMaintenance">
+        update maintenance set manName = #{name}, manId = #{manId}, status = #{status} where mId = #{mId}
+    </update>
+    <update id="Maintainer">
+        update maintainer set status = #{status} where  manid = #{manId};
+    </update>
+
+    <delete id="delUser">
+        delete from user where uid = #{uid}
+    </delete>
+
+    <select id="findTotal" resultType="java.lang.Integer">
+        select count(*) from user
+        <where>
+            <if test="keyWords != null and keyWords != '' ">
+                <bind name="keyWords" value=" '%'+keyWords+'%' "/>
+                username like #{keyWords} or
+                phone like #{keyWords} or
+                email like #{keyWords}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultType="com.jarn.entity.User">
+        select * from user
+        <where>
+            <if test="keyWords != null and keyWords != '' ">
+                <bind name="keyWords" value=" '%'+keyWords+'%' "/>
+                username like #{keyWords} or
+                phone like #{keyWords} or
+                email like #{keyWords}
+            </if>
+        </where>
+        limit #{index}, #{pageSize}
+    </select>
+    <select id="findUsername" resultType="com.jarn.entity.User">
+        select username from user where username = #{username}
+    </select>
+    <select id="findMaintainer" resultType="com.jarn.entity.Maintainer">
+        select * from maintainer where profession = #{rp} and status = #{status};
+    </select>
+
+</mapper>

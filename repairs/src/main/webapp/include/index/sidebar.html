@@ -1,0 +1,58 @@
+<script>
+    $(function () {
+        $.get("mainStatus",{},function (data) {
+            $(".zero").html("总量："+data.zero);
+            $(".ten").html("待修："+data.ten);
+            $(".twenty").html("维修中："+data.twenty);
+            $(".thirty").html("已完成："+data.thirty);
+        });
+    });
+
+    function funZero() {
+        index(null,null,'0')
+    }
+    function funTen() {
+        index(null,null,'10')
+    }
+    function funTwenty() {
+        index(null,null,'20')
+    }
+    function funThirty() {
+        index(null,null,'30')
+    }
+</script>
+
+
+<div class="layui-row layui-bg-blue right-one">
+    报修信息统计
+</div>
+<div class="layui-row right-two">
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <button type="button" class="layui-btn zero" onclick="funZero()">总量:1000</button>
+        </div>
+        <div class="layui-col-md6">
+            <button type="button" class="layui-btn thirty" onclick="funThirty()">已完成:100</button>
+        </div>
+    </div>
+    <div class="layui-row">
+        <div class="layui-col-md6">
+            <button type="button" class="layui-btn twenty" onclick="funTwenty()">维修中:1000</button>
+        </div>
+        <div class="layui-col-md6">
+            <button type="button" class="layui-btn ten" onclick="funTen()">待修:100</button>
+        </div>
+    </div>
+</div>
+<div class="layui-row layui-bg-blue right-three">
+    报修事项
+</div>
+<div class="layui-row right-four">
+    报修流程：
+    <p>可选择电话报修</p>
+    <p>可选择用户登录:
+        默认账号密码为：学号和学号</p>
+    <p>成功成功--->选择我要报修</p>
+</div>
+
+

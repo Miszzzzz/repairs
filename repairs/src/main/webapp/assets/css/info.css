@@ -1,0 +1,15 @@
+.item{
+    margin-left: 15px;
+}
+.repair_start, .repair_process, .repair_evaluation, .repair_end , .m-imp{
+    border-bottom: 1px gray solid;
+    margin-bottom: 20px;
+}
+.m-imp{
+    width: 100%;
+    height: 100px;
+}
+.repair_start span, .repair_process span, .repair_evaluation span, .repair_end span{
+    display: block;
+}
+

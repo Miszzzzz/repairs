@@ -1,0 +1,93 @@
+.page{
+    width: 100%;
+    height: 8%;
+    margin-left: 15px;
+    padding-top: 10px;
+    float: left;
+}
+.page_total{
+    float: left;
+    height: 40px;
+    line-height: 40px;
+    color: gray;
+}
+#navs{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    float: left;
+}
+#navs li{
+    display: block;
+    float: left;
+    height: 40px;
+    width: 40px;
+    line-height: 40px;
+    border: 1px solid #cccccc;
+    margin-left: 15px;
+}
+#navs li a{
+    text-decoration: none;
+    display: block;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: gray;
+}
+.dataItems{
+    width: 100%;
+    height: 80%;
+    margin-left: 15px;
+}
+.dataItems table{
+    width: 100%;
+    height: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.dataItems table td, .dataItems table th{
+    border: 1px solid #cad9ea;
+    color: #666;
+}
+.dataItems table th{
+    background-color: #e6e6e6;
+}
+.dataItems table tr:hover{
+    background-color: #f2f2f2;
+}
+.up_btn{
+    display: inline-block;
+    background-color: #009688;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 2px;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+.btn{
+    display: inline-block;
+    height: 38px;
+    line-height: 38px;
+    padding: 0 18px;
+    background-color: #009688;
+    color: #fff;
+    white-space: nowrap;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    opacity: .9;
+    outline: 0;
+    transition: border-color .3s cubic-bezier(.65,.05,.35,.5);
+    box-sizing: border-box;
+    vertical-align: middle;
+    margin-left: 20px;
+}
+#pageN{
+    border: 1px solid #cccccc;
+    background-color: #1E9FFF;
+}
+

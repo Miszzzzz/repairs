@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员界面-个人中心</title>
+    <link rel="stylesheet" href="/repairs/assets/css/home.css">
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            //加载侧边栏和头部
+            $.get("/repairs/include/user/header.html", function (data) {
+                $("#header").html(data)
+            });
+            $.get("/repairs/include/admin/left.html",function (data) {
+                $("#left_content").html(data);
+            });
+            $.get("findUser",{},function (data) {
+                $("#username").attr("value",data.username);
+                $("#password").attr("value",data.password);
+                $("#phone").attr("value",data.phone);
+                $("#email").attr("value",data.email);
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="header"></div>  <!--头信息-->
+    <div id="left_content"></div>   <!--导航栏信息-->
+    <div id="context">
+        <div class="context_nav">
+            >>>个人中心
+        </div>
+        <div class="context_form">
+            <div class="test">
+                <form id="myForm" method="post">
+                    <div class="form_ipts">
+                        <div class="form_txt">用户账号:</div>
+                        <div class="form_ipt"><input type="txt" id="username" name="username" disabled/></div>
+                    </div>
+                    <div class="form_ipts">
+                        <div class="form_txt">账号密码:</div>
+                        <div class="form_ipt">
+                            <input type="txt" id="password" name="password" onblur="checkPass()"/>
+                            <span class="span_pass"></span>
+                        </div>
+                    </div>
+                    <div class="form_ipts">
+                        <div class="form_txt">电话号码:</div>
+                        <div class="form_ipt">
+                            <input type="txt" id="phone" name="phone" onblur="checkPhone()"/>
+                            <span class="span_phone"></span>
+                        </div>
+                    </div>
+                    <div class="form_ipts">
+                        <div class="form_txt">电子邮箱:</div>
+                        <div class="form_ipt">
+                            <input type="txt" id="email" name="email" onblur="checkEmail()"/>
+                            <span class="span_email"></span>
+                        </div>
+                    </div>
+                    <div class="form_ipts">
+                        <input type="reset" value="重置" class="layui-btn">
+                        <button id="btn" type="button" onclick="updateUser()" class="layui-btn">提交</button>
+                        <span id="error"></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+<script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+<script>
+    /*更新用户*/
+    function updateUser() {
+        if (checkPass() && checkEmail() && checkPhone()){
+            $.post("updateUser",$("#myForm").serialize(),function (data) {
+                console.log($("#myForm").serialize())
+                if (data.flag){
+                    layer.msg("修改成功");
+                }else {
+                    layer.msg("修改失败");
+                }
+            });
+        }
+    }
+
+    /**表单验证
+     */
+    //密码验证
+    function checkPass(){
+        const password = $("#password").val();
+        //定义正则
+        const reg_password = /^\w{5,15}$/;
+        const flag = reg_password.test(password);
+        if (flag){
+            $(".span_pass").html("");
+            $("#password").css("border-color","gray");
+        }else {
+            $(".span_pass").html("请输入5到15位密码");
+            $(".span_pass").css("color","red");
+            $("#password").css("border-color","red");
+        }
+        return flag;
+    }
+
+    //电话号码
+    function checkPhone(){
+        const phone = $("#phone").val();
+        //定义正则
+        const reg_phone = /^1\d{10}$/;
+        const flag = reg_phone.test(phone);
+        if (flag){
+            $("#phone").css("border-color","gray");
+            $(".span_phone").html("");
+        }else {
+            $("#phone").css("border-color","red");
+            $(".span_phone").html("例：18711486720");
+            $(".span_phone").css("color","red");
+        }
+        return flag;
+    }
+
+    //邮箱验证
+    function checkEmail(){
+        const email = $("#email").val();
+        //定义正则
+        const reg_email = /^\w+@\w+.\w+$/;
+        const flag = reg_email.test(email);
+        if (flag){
+            $(".span_email").html("");
+            $("#email").css("border-color","gray");
+        }else {
+            $("#email").css("border-color","red");
+            $(".span_email").html("例：123@qq.com");
+            $(".span_email").css("color","red");
+        }
+        return flag;
+    }
+
+</script>
+
+</body>
+</html>

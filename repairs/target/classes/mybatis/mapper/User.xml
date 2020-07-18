@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jarn.dao.UserDao">
+
+    <sql id="findSQL">
+        select * from maintenance;
+    </sql>
+    <!--
+                ", repairsDetail='" + repairsDetail + '\'' +
+                ", repairsDate='" + repairsDate + '\'' +
+                ", appointmentDate='" + appointmentDate + '\'' +
+                ", status='" + status + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", evaluation='" + evaluation + '\'' +
+                ", manId=" + manId +
+                ", manName='" + manName + '\'' +
+                ", uid=" + uid +
+                ", images=" + images +
+                '}';-->
+    
+    <resultMap id="maintenanceResultMap" type="com.jarn.entity.Maintenance">
+        <id column="mId" property="mId"></id>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="address" property="address"></result>
+        <result column="detailAddress" property="detailAddress"></result>
+        <result column="repairsType" property="repairsType"></result>
+        <result column="repairsDetail" property="repairsDetail"></result>
+        <result column="repairsDate" property="repairsDate"></result>
+        <result column="appointmentDate" property="appointmentDate"></result>
+        <result column="status" property="status"></result>
+        <result column="startDate" property="startDate"></result>
+        <result column="endDate" property="endDate"></result>
+        <result column="evaluation" property="evaluation"></result>
+        <result column="manId" property="manId"></result>
+        <result column="manName" property="manName"></result>
+        <result column="uid" property="uid"></result>
+        <collection property="images" ofType="com.jarn.entity.RepairsImage" column="mId"
+                    select="com.jarn.dao.UserDao.findRepairsImage"></collection>
+    </resultMap>
+
+
+    <insert id="saveMaintenace" parameterType="com.jarn.entity.Maintenance" useGeneratedKeys="true" keyProperty="mId">
+        insert into maintenance
+        (mId, name, phone, address, detailAddress, repairsType, repairsDetail, repairsDate, appointmentDate, status, uid)
+        values
+        (#{mId},#{name},#{phone},#{address},#{detailAddress},#{repairsType},#{repairsDetail},#{repairsDate},#{appointmentDate},#{status},#{uid})
+    </insert>
+
+    <insert id="saveImage" parameterType="java.util.List">
+        insert into RepairsImage(mId, url) values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (
+            #{item.mId},#{item.url}
+            )
+        </foreach>
+    </insert>
+
+    <update id="updateUser" parameterType="com.jarn.entity.User">
+        update user set password = #{password}, phone = #{phone}, email = #{email} where username = #{username};
+    </update>
+
+    <select id="login" resultType="com.jarn.entity.User">
+        select * from user where username = #{param1} and password = #{param2};
+    </select>
+
+    <select id="findUserByUid" resultType="com.jarn.entity.User">
+        select * from user where uid = #{uid};
+    </select>
+
+    <select id="findTotal" resultType="java.lang.Integer">
+        select count(*) from maintenance
+        <where>
+            <if test="keyWords != null and keyWords != '' ">
+                <bind name="keyWords" value=" '%'+keyWords+'%' "/>
+                name like #{keyWords} or
+                phone like #{keyWords} or
+                address like #{keyWords} or
+                detailAddress like #{keyWords} or
+                repairsType like #{keyWords}
+            </if>
+            <if test="status != null and status!= ''">
+                and status = #{status}
+            </if>
+            <if test="uid != null and uid!= ''">
+                and uid = #{uid}
+            </if>
+        </where>
+    </select>
+
+    <select id="findAll" resultMap="maintenanceResultMap">
+        select * from maintenance
+        <where>
+            <if test="keyWords != null and keyWords != '' ">
+                <bind name="keyWords" value=" '%'+keyWords+'%' "/>
+                (
+                name like #{keyWords} or
+                phone like #{keyWords} or
+                address like #{keyWords} or
+                detailAddress like #{keyWords} or
+                repairsType like #{keyWords}
+                )
+            </if>
+            <if test="status != null and status!= ''">
+                and status = #{status}
+            </if>
+            <if test="uid != null and uid!= ''">
+                and uid = #{uid}
+            </if>
+        </where>
+        limit #{index}, #{pageSize}
+    </select>
+
+    <select id="findMaintenanceByMid" resultMap="maintenanceResultMap">
+        select * from maintenance where mId = #{mId}
+    </select>
+
+    <select id="findRepairsImage" resultType="com.jarn.entity.RepairsImage">
+        select url from RepairsImage where mId = #{mId}
+    </select>
+
+    <update id="evaluation">
+        update maintenance set evaluation = #{evaluation} where mId = #{mId}
+    </update>
+</mapper>

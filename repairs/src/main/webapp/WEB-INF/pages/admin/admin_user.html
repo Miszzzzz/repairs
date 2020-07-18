@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员界面-用户管理</title>
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <link rel="stylesheet" href="/repairs/assets/css/admin.css">
+    <link rel="stylesheet" href="/repairs/assets/css/home.css">
+    <script type="text/javascript" src="/repairs/assets/js/head.js"></script>
+    <script type="text/javascript" src="/repairs/assets/js/admin.js"></script>
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $(function () {
+                //加载侧边栏和头部
+                $.get("/repairs/include/user/header.html", function (data) {
+                    $("#header").html(data)
+                });
+                $.get("/repairs/include/admin/left.html",function (data) {
+                    $("#left_content").html(data);
+                });
+            });
+            admin(1,null);
+        });
+    </script>
+</head>
+<body>
+<div id="header"></div>  <!--头信息-->
+<div id="left_content"></div>   <!--导航栏信息-->
+<div id="context">
+    <div class="context_nav">
+        >>>用户管理
+    </div>
+    <div class="dataItems">
+        <table id="tab_data">
+
+        </table>
+    </div>
+    <div class="page">
+        <div class="page_total"><span id="pages">12</span>页<span id="total">132</span>条</div>
+        <ul id="navs">
+            <li><a href="">首页</a></li>
+            <li><a href=""><<<</a></li>
+            <li><a href="">1</a></li>
+            <li><a href="">2</a></li>
+            <li><a href="">3</a></li>
+            <li><a href="">4</a></li>
+            <li><a href="">5</a></li>
+            <li><a href="">6</a></li>
+            <li><a href="">7</a></li>
+            <li><a href="">8</a></li>
+            <li><a href="">9</a></li>
+            <li><a href="">10</a></li>
+            <li><a href="">>>></a></li>
+            <li><a href="">尾页</a></li>
+        </ul>
+        <input type="button" value="添加用户" class="btn" onclick="saveUser()">
+        <span id="tab_text"></span>
+    </div>
+</div>
+<link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+<script type="text/javascript" src="/repairs/assets/js/getParameter.js"></script>
+<script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+<script>
+    /*添加用户*/
+    function saveUser() {
+        layer.open({
+            type: 1,
+            title:'添加用户',
+            area: ['600px', '350px'], //宽高
+            content: '<form id="myForm" method="post">\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">用户账号:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="username" name="username" onblur="checkUsername()"/>' +
+                '<span class="span_name"></span></div>' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">账号密码:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="password" name="password" onblur="checkPass()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">电话号码:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="phone" name="phone" onblur="checkPhone()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">电子邮箱:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="email" name="email" onblur="checkEmail()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <input type="reset" value="重置" class="btn">\n' +
+                '                        <button id="btn" type="button" class="btn" onclick="f1()">提交</button>\n' +
+                '                        <span id="error"></span>\n' +
+                '                    </div>\n' +
+                '                </form>'
+        });
+    }
+
+    /*修改用户*/
+    function updateUser(e){
+        layer.open({
+            type: 1,
+            title:'更改用户',
+            area: ['600px', '350px'], //宽高
+            content: '<form id="saveForm" method="post">\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">用户账号:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="username" name="username" disabled onblur="checkUsername()"/>' +
+                '<span class="span_name"></span></div>' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">账号密码:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="password" name="password" onblur="checkPass()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts" style="display: none">\n' +
+                '                        <div class="form_txt">用户uid:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="uid" name="uid"/></div>\n' +
+                '                    </div>\n' +
+                '                     <div class="form_ipts">\n' +
+                '                        <div class="form_txt">电话号码:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="phone" name="phone" onblur="checkPhone()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <div class="form_txt">电子邮箱:</div>\n' +
+                '                        <div class="form_ipt"><input type="txt" id="email" name="email" onblur="checkEmail()"/></div>\n' +
+                '                    </div>\n' +
+                '                    <div class="form_ipts">\n' +
+                '                        <input type="reset" value="重置" class="btn">\n' +
+                '                        <button id="btn" type="button" class="btn" onclick="f2()">提交</button>\n' +
+                '                        <span id="error"></span>\n' +
+                '                    </div>\n' +
+                '                </form>'
+        });
+        let td =e.parentNode.parentNode;
+        let arr = [];
+        for (let i = 0; i < td.cells.length - 1; i++){
+            arr[i] = td.cells[i].innerHTML;
+        }
+        $("#uid").val(arr[0]);
+        $("#username").val(arr[1]);
+        $("#password").val(arr[2]);
+        $("#phone").val(arr[3]);
+        $("#email").val(arr[4]);
+        // console.log(arr);
+    }
+
+    /*删除用户*/
+    function delUser(e) {
+        let uid = e.parentNode.parentNode.cells[0].innerHTML;
+        console.log(uid);
+        $.post("delUser",{uid:uid},function (data) {
+            if (data.flag){
+                admin()
+                layer.msg("修改成功");
+            }else{
+                layer.msg("修改发生错误");
+            }
+        });
+    }
+
+    /*添加用户表单提交*/
+    function subForm() {
+        console.log($("#myForm").serialize());
+        $.post("saveUser",$("#myForm").serialize(),function (data) {
+            if (data.flag){
+                layer.msg("添加成功");
+                setTimeout('location.replace(location.href)', 1000);
+            }else {
+                layer.msg("添加失败");
+                setTimeout('location.replace(location.href)', 1000);
+            }
+        });
+    }
+
+    /*修改用户表单提交*/
+    function updateForm() {
+        //console.log($("#saveForm").serialize());
+        $.get("updateUser",$("#saveForm").serialize(),function (data) {
+            if (data.flag){
+                layer.msg("修改成功");
+                setTimeout('location.replace(location.href)', 1000);
+            }else{
+                layer.msg("异常");
+                setTimeout('location.replace(location.href)', 1000);
+            }
+        });
+    }
+
+
+    function f2() {
+        if (checkPass() && checkPhone() && checkEmail()){
+            updateForm();
+        }else {
+            return;
+        }
+    }
+
+    /*添加函数*/
+    function f1() {
+        if (checkUsername() && checkPass() && checkPhone() && checkEmail()){
+            subForm();
+        }
+    }
+
+
+    /**表单验证
+     */
+    //用户名
+    function checkUsername(){
+        const username = $("#username").val();
+        console.log(username)
+        if (username.length == 0){
+            $("#username").css("border-color","red");
+            $(".span_name").html("不能为空");
+            $(".span_name").css("color","red");
+            return;
+        }
+        //定义正则
+        const reg_username = /^[A-Za-z0-9]{5,15}$/;
+        const flag = reg_username.test(username);
+        if (flag){
+            $("#username").css("border-color","gray");
+            $.get("findUsername",{username:username},function (data) {
+                if (data.flag){
+                    $(".span_name").html(data.errorMsg);
+                    $("#username").css("border-color","gray");
+                    $(".span_name").css("color","green");
+                }else {
+                    $(".span_name").html(data.errorMsg);
+                    $("#username").css("border-color","red");
+                    $(".span_name").css("color","red");
+                }
+            });
+        }else {
+            $("#username").css("border-color","red");
+            $(".span_name").html("5-15位");
+            $(".span_name").css("color","red");
+        }
+        return flag;
+    }
+
+    //密码验证
+    function checkPass(){
+        const password = $("#password").val();
+        //定义正则
+        const reg_password = /^\w{5,15}$/;
+        const flag = reg_password.test(password);
+        if (flag){
+            $("#password").css("border-color","gray");
+        }else {
+            $("#password").css("border-color","red");
+        }
+        return flag;
+    }
+
+    //电话号码
+    function checkPhone(){
+        const phone = $("#phone").val();
+        //定义正则
+        const reg_phone = /^1\d{10}$/;
+        const flag = reg_phone.test(phone);
+        if (flag){
+            $("#phone").css("border-color","gray");
+        }else {
+            $("#phone").css("border-color","red");
+        }
+        return flag;
+    }
+
+    //邮箱验证
+    function checkEmail(){
+        const email = $("#email").val();
+        //定义正则
+        const reg_email = /^\w+@\w+.\w+$/;
+        const flag = reg_email.test(email);
+        if (flag){
+            $("#email").css("border-color","gray");
+        }else {
+            $("#email").css("border-color","red");
+        }
+        return flag;
+    }
+
+</script>
+
+</body>
+</html>

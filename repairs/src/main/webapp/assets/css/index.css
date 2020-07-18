@@ -1,0 +1,54 @@
+body{
+    background: #F0F0F0;
+}
+.header{
+    height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+}
+.header div{
+    text-align: center;
+}
+.header a{
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    color: white;
+}
+.container-left{
+    margin-right: 20px;
+    margin-top: 20px;
+    background-color: white;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+.container-right{
+    margin-top: 20px;
+    background-color: white;
+}
+.right-one{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.right-two{
+    height: 160px;
+}
+.right-two button{
+    height: 50px;
+    width: 150px;
+    margin-top:20px;
+}
+.right-three{
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.right-four p{
+    font-size: 16px;
+}

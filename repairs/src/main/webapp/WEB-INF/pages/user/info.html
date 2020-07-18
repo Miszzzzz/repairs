@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户界面-报修详情</title>
+    <link rel="stylesheet" href="/repairs/assets/css/user.css">
+    <link rel="stylesheet" href="/repairs/assets/css/info.css">
+    <link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+    <script type="text/javascript" src="/repairs/assets/js/getParameter.js"></script>
+    <script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script>
+        $(function () {
+            //头部 和  导航栏
+            //查询到用户信息  发生ajax请求 加载主页内容
+            $.get("/repairs/include/user/left.html", function (data) {
+                $("#left_content").html(data);
+            });
+            $.get("/repairs/include/user/header.html", function (data) {
+                $("#header").html(data)
+            });
+            let mId = getParameter("mId");
+            $.get("findMainInfo",{mId:mId},function (data) {
+                let mains = data;
+                let items = "";
+
+                let repair_start = "<div class=\"repair_start\">\n" +
+                    "                    <span>报修人:"+mains.name+"</span>\n" +
+                    "                    <span>报修时间:"+mains.repairsDate+"</span>\n" +
+                    "                    <span>预约时间:"+mains.appointmentDate+"</span>\n" +
+                    "                    <span>报修地址:"+mains.address+"-"+mains.detailAddress+"</span>\n" +
+                    "                    <span>报修内容:"+mains.repairsType+"-"+mains.repairsDetail+"</span>\n" +
+                    "                </div>";
+                let mImg = "<div class=\"m-imp\">\n" +
+                    "    <ul class=\"img-list\">";
+                let list = data.images;
+                let lis = "";
+                //console.log(list);
+                for (let i=0;i<list.length;i++){
+                    let pic = "http://localhost:8080/repairs/assets/images/";
+                    let p = list[i].url;
+                    //console.log(p);
+                    let t = p.split("\\");
+                    //console.log(t);
+                    let len = t.length - 1;
+                    pic += t[len];
+                    //console.log(pic)
+                    let li = "<a style=\"float:left;\">\n" +
+                        "            <a href=\""+pic+"\" target='_blank'><img src=\""+pic+"\" width=\"165px\" height=\"96px\"></a>\n" +
+                        "        </li>";
+                    lis += li;
+                }
+                mImg += lis;
+                let mImg_end = "</ul>\n" +
+                    "</div>";
+                mImg += mImg_end;
+                items += repair_start;
+                items += mImg;
+                let repair_process = "<div class=\"repair_process\">\n" +
+                    "                    <span>派工时间:"+mains.startDate+"</span>\n" +
+                    "                    <span>派工对象:"+mains.manName+"</span>\n" +
+                    "                </div>";
+                if (mains.startDate != null){
+                    items += repair_process;
+                }
+                let evaluation = mains.evaluation;
+                console.log(evaluation == null);
+                if (evaluation == null){
+                    evaluation = "未评价";
+                }
+
+                let repair_evaluation = "<div class=\"repair_evaluation\">\n" +
+                    "                    <span>完工时间:"+mains.endDate+"</span>\n" +
+                    "                    <span>评价:<i class='test'>"+evaluation+"</i></span>\n" +
+                    "                </div>";
+                let repair_end = "<div class=\"repair_end\" style='display: none'>\n" +
+                    "                    <form><textarea class='rea'></textarea><input style='margin-left: 10px' class='layui-btn btn' type='button' value='评价'></form>\n" +
+                    "                </div>";
+                if (mains.endDate != "" && mains.startDate != null && mains.endDate != null){
+                    items += repair_evaluation;
+                    items += repair_end;
+                }
+                $(".item").html(items);
+
+                if (evaluation == "未评价" && mains.startDate != null){
+                    $(".repair_end").css({"display":"block"});
+                }
+
+                $(".btn").click(function () {
+                    //console.log("val="+$(".rea").val());
+                    //console.log("text="+$(".rea").text());
+                    $.get("evaluation",{evaluation:$(".rea").val(),mId:mId},function (data) {
+                        if (data.flag){
+                            layer.msg("评价成功");
+                            $(".repair_end").css({"display":"none"});
+                        }else {
+                            layer.msg("失败！请重新评价");
+                            $(".repair_end").css({"display":"block"});
+                        }
+                    });
+                });
+
+            })
+        });
+    </script>
+</head>
+<body>
+<div id="box">
+    <div id="header"></div>
+    <div id="left_content"></div>   <!--导航栏信息-->
+    <div id="context">
+        <div class="context_nav">
+            >>>报修详情
+        </div>
+        <div class="context_form">
+            <div class="item">
+                <div class="repair_start">
+                    <span>报修人:A先生</span>
+                    <span>报修时间:2020-04-14 09:33:29</span>
+                    <span>预约时间:2020-04-14 09:33:29</span>
+                    <span>报修地址:EastCourtyard-4栋501</span>
+                    <span>报修内容:水电类维修-花洒破裂</span>
+                </div>
+                <div class="repair_process">
+                    <span>处理人:jarn--[后勤处]</span>
+                    <span>派工时间:2020-04-14 09:33:29</span>
+                    <span>派工对象:陈师傅</span>
+                </div>
+                <div class="repair_evaluation">
+                    <span>完工时间:2020-04-14 09:33:29</span>
+                    <span>评价:派工时间快，维修仔细</span>
+                </div>
+                <div class="repair_end">
+                    <span>已完成</span>
+                    <form action="" method="get">
+                        <textarea></textarea>
+                        <input type="button" value="评价">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>  <!--主题信息-->
+</div>
+</body>
+</html>

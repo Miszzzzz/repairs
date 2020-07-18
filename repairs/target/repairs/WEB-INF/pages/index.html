@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高校后勤报修服务平台</title>
+    <link rel="stylesheet" href="/repairs/assets/layui/css/layui.css">
+    <link rel="stylesheet" href="/repairs/assets/css/index.css">
+    <script type="text/javascript" src="/repairs/assets/layui/layui.all.js"></script>
+    <script type="text/javascript" src="/repairs/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/repairs/assets/js/index.js"></script>
+    <script type="text/javascript" src="/repairs/assets/js/include.js"></script>
+</head>
+<script>
+    $(function () {
+        index(null,null,null);
+    });
+</script>
+<body>
+<div class="layui-box layui-bg-blue header"></div>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md7 container-left">
+            <div class="layui-row">
+                <button type="button" class="layui-btn" style="margin-bottom: 10px">最新报修</button>
+            </div>
+            <div class="layui-row">
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline" style="margin-right: 0">
+                            <input type="text" placeholder="输入关键字查询" class="layui-input" id="keyWords" name="keyWords">
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" class="layui-btn" onclick="javascript:f1();">查询</button>
+                        </div>
+                        <div class="layui-inline" style="width: 150px">
+                            <select id="status" name="status" lay-filter="status">
+                                <option value="0">所有</option>
+                                <option value="10">未审核</option>
+                                <option value="20">已派工</option>
+                                <option value="30">已完成</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="layui-row">
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="80">
+                        <col width="100">
+                        <col width="140">
+                        <col width="60">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>报修类型</th>
+                        <th>报修时间</th>
+                        <th>报修详情</th>
+                        <th>报修状态</th>
+                    </tr>
+                    </thead>
+                    <tbody class="item-body">
+                    <tr>
+                        <td>1</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>人生就像是一场修行</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    <tr>
+                        <td>许闲心</td>
+                        <td>2020-04-14 09:33:29</td>
+                        <td>的无涯的荒野里…</td>
+                        <td>完成</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="layui-row">
+                <div class="page">
+                    <div class="page_total"><span id="pages">12</span>页<span id="total">132</span>条</div>
+                    <ul id="navs">
+                        <li><a href="">首页</a></li>
+                        <li><a href=""><<<</a></li>
+                        <li><a href="">1</a></li>
+                        <li><a href="">2</a></li>
+                        <li><a href="">3</a></li>
+                        <li><a href="">4</a></li>
+                        <li><a href="">5</a></li>
+                        <li><a href="">>>></a></li>
+                        <li><a href="">尾页</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md4 container-right"></div>
+    </div>
+</div>
+</body>
+<script>
+    /*关键字查询*/
+    function f1(){
+        let keyWords = document.getElementById("keyWords").value;
+        console.log(keyWords)
+        if (keyWords != null && keyWords != ''){
+            index(null,keyWords,null)
+        }
+    }
+
+    layui.use('form', function(){
+        const form = layui.form;
+        form.on('select(status)', function(data){
+            //console.log(data);
+            //console.log(data.value);
+            index(null,null,data.value);
+        });
+        form.render();
+    });
+</script>
+<style>
+    .div-img{
+        position: absolute;
+        width: 150px;
+        height: 60px;
+        right: 100px;
+        top: 65px;
+    }
+    .img{
+        width:auto;
+        height:100%;
+    }
+    .page{
+        width: 100%;
+        height: 8%;
+        margin-left: 15px;
+        padding-top: 10px;
+        float: left;
+    }
+    .page_total{
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        color: gray;
+    }
+    #navs{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        float: left;
+    }
+    #navs li{
+        display: block;
+        float: left;
+        height: 40px;
+        width: 40px;
+        line-height: 40px;
+        border: 1px solid #cccccc;
+        margin-left: 15px;
+    }
+    #pageN{
+        border: 1px solid #cccccc;
+        background-color: #1E9FFF;
+    }
+    #navs li a{
+        text-decoration: none;
+        display: block;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: gray;
+    }
+</style>
+</html>
