@@ -37,7 +37,7 @@
 
 ## 主要界面以及代码
 
-![image-20200718093735559](C:\Users\jarn\AppData\Roaming\Typora\typora-user-images\image-20200718093735559.png)
+![image](https://github.com/Miszzzzz/repairs/blob/master/images/image-20200718093735559.png)
 
 ![image-20200718095008201](C:\Users\jarn\AppData\Roaming\Typora\typora-user-images\image-20200718095008201.png)
 
