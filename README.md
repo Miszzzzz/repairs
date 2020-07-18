@@ -37,11 +37,11 @@
 
 ## 主要界面以及代码
 
-![image](https://github.com/Miszzzzz/repairs/blob/master/images/image-20200718093735559.png)
+![image](https://github.com/eMiszzzzz/repairs/blob/master/images/image-20200718093735559.png)
 
-![image-20200718095008201](C:\Users\jarn\AppData\Roaming\Typora\typora-user-images\image-20200718095008201.png)
+![image](https://github.com/Miszzzzz/repairs/blob/master/images/image-20200718093513546.png)
 
-![image-20200718095237089](C:\Users\jarn\AppData\Roaming\Typora\typora-user-images\image-20200718095237089.png)
+![image](https://github.com/Miszzzzz/repairs/blob/master/images/image-20200718095008201.png)
 
 #### 处理文件和平台输入项
 
